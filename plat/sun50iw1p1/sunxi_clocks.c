@@ -81,7 +81,7 @@ int sunxi_setup_clocks(uint16_t socid)
 	udelay(20);
 
 	/* Set to 816MHz, but don't enable yet. */
-	mmio_write_32(CCMU_PLL_CPUX_CTRL_REG, PLL_CPUX_816MHZ);
+	mmio_write_32(CCMU_PLL_CPUX_CTRL_REG, PLL_CPUX_408MHZ);
 
 	/* Enable PLL_CPUX again */
 	mmio_setbits32(CCMU_PLL_CPUX_CTRL_REG, PLL_ENABLE_BIT);
