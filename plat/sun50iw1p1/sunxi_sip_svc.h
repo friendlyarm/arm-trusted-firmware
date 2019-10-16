@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2014, ARM Limited and Contributors. All rights reserved.
+ * Copyright (c) 2016,2017 ARM Limited and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -27,24 +27,27 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#ifndef __PLAT_SIP_SVC_H__
+#define __PLAT_SIP_SVC_H__
 
-#include <arch.h>
-#include <arch_helpers.h>
-#include <assert.h>
-#include <bl_common.h>
-#include <bl31.h>
-#include <platform.h>
+#include <stdint.h>
 
-/*******************************************************************************
- * This duplicates what the primary cpu did after a cold boot in BL1. The same
- * needs to be done when a cpu is hotplugged in. This function could also over-
- * ride any EL3 setup done by BL1 as this code resides in rw memory.
- ******************************************************************************/
-void bl31_arch_setup(void)
-{
-	/* Set the RES1 bits in the SCR_EL3 */
-	write_scr_el3(SCR_RES1_BITS);
+/* SMC function IDs for SiP Service queries */
+#define SIP_SVC_CALL_COUNT		0x8200ff00
+#define SIP_SVC_UID			0x8200ff01
+/*					0x8200ff02 is reserved */
+#define SIP_SVC_VERSION			0x8200ff03
 
-	/* Program the counter frequency */
-	write_cntfrq_el0(plat_get_syscnt_freq());
-}
+/* Allwinner SiP Service Calls version numbers */
+#define SUNXI_SIP_SVC_VERSION_MAJOR	0x0
+#define SUNXI_SIP_SVC_VERSION_MINOR	0x1
+
+#define SMC_AARCH64_BIT			0x40000000
+
+/* Number of Allwinner SiP Calls implemented */
+#define SUNXI_COMMON_SIP_NUM_CALLS	1
+
+/* Allwinner SiP Service Calls function IDs */
+#define SUNXI_SIP_MBOX_TRIGGER		0x82000001
+
+#endif /* __PLAT_SIP_SVC_H__ */
